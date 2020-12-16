@@ -52,8 +52,18 @@ chs2016 = get_district_data('2016chs')
 chs2017 = get_district_data('2017chs')
 chs2018 = get_district_data('2016chs')
 chs2019 = get_district_data('2017chs')
-#chs = {2016:chs2017, 2017:chs2017, 2018:chs2018, 2019:chs2019}
-chs =[chs2016,chs2017,chs2018,chs2019]
+chs = [chs2016,chs2017,chs2018,chs2019]
+def pointrank(year):
+    pr=[]
+    for team in year:
+        points = team['points']
+        rank = team['rank']
+        income = team['income']
+        team = team['key']
+        pr.append([team,income,rank,points])
+    return pr
+chespeake =[]
+#chespeake.append(pointrank(chs2016))
 
 def income_points_chart(district):
     '''creates plot of income verse district points'''
@@ -61,15 +71,16 @@ def income_points_chart(district):
     rainbow = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
     for year in district:
         for team in year:
-            x = int(team['income'])
-            y = team['rank']
+            x = team[0]
+            y = team[1]
             plt.scatter(x, y, c=rainbow[color], label=year)
         color += 1
     plt.legend()
     plt.grid(True)
     plt.show()
 
+#income_points_chart(chespeake)
+print(chs)
 
-income_points_chart(chs)
-#print(chs)
+
 
