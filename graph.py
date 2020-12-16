@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 def chart_year(year):
     "year is age of the district"
     for team in year:
-        if team.get_points() is not None:
-            plt.plot(team.get_income(), team.get_points(),'bo')
+        plt.plot(team.get_income(), team.get_points(),'bo')
     plt.show()
 

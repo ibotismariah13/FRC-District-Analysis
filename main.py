@@ -1,8 +1,12 @@
 '''Proccesses teams creats districts'''
+import json
+
+import requests  # abblity to request api
+
 import graph
 from team import Team
-import requests  # abblity to request api
-import json
+
+
 def get_district_data(district_code):
     '''creates a dictorary for the given district year and returns a list'''
     url = "https://www.thebluealliance.com/api/v3/district/" + district_code + "/teams"
@@ -35,19 +39,29 @@ def get_district_data(district_code):
                 element['points'] = int(rank['point_total'])
                 element['rank'] = int(rank['rank'])
     return teams
+
+
 def createYear(district_code):
-    teams=get_district_data(district_code)
-    year=[]
+    teams = get_district_data(district_code)
+    year = []
     for element in teams:
-       if element.get('points') != None:
-            year.append(Team(element['key'], element['team_number'], element['nickname'],element['rookie_year'], element['postal_code'],
+        if element.get('points') is not None:
+            year.append(Team(element['key'], element['team_number'], element['nickname'], element['rookie_year'],
+                             element['postal_code'],
                              element.get('points'), element.get('rank')))
     return year
+
+
 def create_district(district_codes):
-    district=[]
+    district = []
     for year in district_codes:
         district.append(createYear(year))
     return district
-chs = ['2016chs' , '2017chs', '2018chs','2019chs']
+
+
+chs = ['2016chs', '2017chs', '2018chs', '2019chs']
+fim = ['2015fim','2016fim', '2017fim', '2018fim', '2019fim']
 chesapeake = create_district(chs)
+mich=create_district(fim)
 graph.chart_year(chesapeake[0])
+graph.chart_year(mich[0])

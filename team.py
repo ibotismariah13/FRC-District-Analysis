@@ -9,11 +9,7 @@ class Team:
         self.rookie_year = int(rookie_year)
         self.postal_code = postal_code
         self.points = points
-        if points is None:
-            self.points = 0
         self.rank = rank
-        if rank is None:
-            self.rank = 0
 
         search= uszip.SearchEngine()
         zipcode = search.by_zipcode(postal_code)
