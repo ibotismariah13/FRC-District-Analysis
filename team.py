@@ -7,15 +7,25 @@ class Team:
         self.number = int(number)
         self.name = name
         self.rookie_year = int(rookie_year)
-        self.postal_code = int(postal_code)
-        self.points = int(points)
-        self.rank = int(rank)
-        search = uszip.SearchEngine()
+        self.postal_code = postal_code
+        self.points = points
+        if points is None:
+            self.points = 0
+        self.rank = rank
+        if rank is None:
+            self.rank = 0
+
+        search= uszip.SearchEngine()
         zipcode = search.by_zipcode(postal_code)
         zipcode.zipcode
-        self.pop_density = int(zipcode.population_density)
-        self.income = int(zipcode.median_household_income)
+        self.pop_density = zipcode.population_density
+        self.income = zipcode.median_household_income
+
 
 
     def __str__(self):
-        return self.key + ' ' + self.number + ' '+self.name + ' ' + self.rookie_year + ' '+ self.postal_code + ' ' + self.points + ' '+ self.rank+ ' ' + self.pop_density + ' '+ self.income
+        return self.key + ' ' + str(self.number) + ' '+self.name + ' ' + str(self.rookie_year) + ' '+ str(self.postal_code) + ' ' + str(self.points) + ' '+ str(self.rank)+ ' ' + str(self.pop_density) + ' '+ str(self.income)
+    def get_points(self):
+        return self.points
+    def get_income(self):
+        return self.income

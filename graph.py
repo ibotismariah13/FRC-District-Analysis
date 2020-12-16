@@ -4,19 +4,11 @@ The graph will choose x-axis options (  income, distance from competition, trave
 
 '''imports'''
 import team
-"""import matplotlib.pyplot as plt
-def income_points_chart(district):
-    '''creates plot of income verse district points'''
-    color = 0
-    rainbow = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
-    for year in district:
-        for team in year:
-            x = team[0]
-            y = team[1]
-            plt.scatter(x, y, c=rainbow[color], label=year)
-        color += 1
-    plt.legend()
-    plt.grid(True)
+import matplotlib.pyplot as plt
+def chart_year(year):
+    "year is age of the district"
+    for team in year:
+        if team.get_points() is not None:
+            plt.plot(team.get_income(), team.get_points(),'bo')
     plt.show()
 
-#income_points_chart(chespeake)"""
