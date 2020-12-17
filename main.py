@@ -38,30 +38,35 @@ def get_district_data(district_code):
             if element['key'] == rank['team_key']:
                 element['points'] = int(rank['point_total'])
                 element['rank'] = int(rank['rank'])
+
     return teams
 
 
-def createYear(district_code):
+def createYear(district_code, states):
     teams = get_district_data(district_code)
     year = []
     for element in teams:
-        if element.get('points') is not None:
+        if element.get('state_prov') in states and element.get:
             year.append(Team(element['key'], element['team_number'], element['nickname'], element['rookie_year'],
-                             element['postal_code'],
+                             element['postal_code'], element['state_prov'],
                              element.get('points'), element.get('rank')))
+
     return year
 
 
-def create_district(district_codes):
+def create_district(district_codes, states):
     district = []
     for year in district_codes:
-        district.append(createYear(year))
+        district.append(createYear(year,states))
     return district
 
 
 chs = ['2016chs', '2017chs', '2018chs', '2019chs']
 fim = ['2015fim','2016fim', '2017fim', '2018fim', '2019fim']
-chesapeake = create_district(chs)
-mich=create_district(fim)
-graph.chart_year(chesapeake[0])
-graph.chart_year(mich[0])
+#chs2016=createYear('2016chs')
+chesapeake = create_district(chs,['Maryland','Virginia',"District of Columbia"])
+#mich=create_district(fim)
+graph.chart_year(chesapeake[0], 'income', 'points','blue')
+graph.chart_district(chesapeake,'income','points')
+#graph.chart_year(mich[0])
+

@@ -2,7 +2,7 @@
 import uszipcode as uszip  # zipcode data https://uszipcode.readthedocs.io/01-Tutorial/index.html
 class Team:
 
-    def __init__(self, key, number, name, rookie_year, postal_code, points, rank):
+    def __init__(self, key, number, name, rookie_year, postal_code, state, points, rank):
         self.key = key
         self.number = int(number)
         self.name = name
@@ -10,6 +10,7 @@ class Team:
         self.postal_code = postal_code
         self.points = points
         self.rank = rank
+        self.state = state
 
         search= uszip.SearchEngine()
         zipcode = search.by_zipcode(postal_code)
@@ -20,7 +21,8 @@ class Team:
 
 
     def __str__(self):
-        return self.key + ' ' + str(self.number) + ' '+self.name + ' ' + str(self.rookie_year) + ' '+ str(self.postal_code) + ' ' + str(self.points) + ' '+ str(self.rank)+ ' ' + str(self.pop_density) + ' '+ str(self.income)
+            team= self.key + ' ' + str(self.number) + ' '+self.name + ' ' + str(self.rookie_year) +' ' + str(self.postal_code) + ' ' + str(self.points) + ' '+ str(self.rank)+ ' ' + str(self.pop_density) + ' '+ str(self.income) + ' '+ str(self.income) + ' '+ self.state
+            return team
     def get_points(self):
         return self.points
     def get_income(self):

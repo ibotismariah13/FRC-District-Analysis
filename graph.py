@@ -5,9 +5,23 @@ The graph will choose x-axis options (  income, distance from competition, trave
 '''imports'''
 import team
 import matplotlib.pyplot as plt
-def chart_year(year):
+def chart(year, x, y,color):
     "year is age of the district"
     for team in year:
-        plt.plot(team.get_income(), team.get_points(),'bo')
+        if x == "income" and y=='points':
+            if team.get_points() and team.get_income()is not None:
+                xv=team.get_income()
+                yv=team.get_points()
+                plt.scatter(xv, yv, c=color, alpha = 0.5)
+def chart_year(year, x, y,color):
+    chart(year,x,y,color)
     plt.show()
+
+def chart_district(district, x,y):
+    colors = ['red','orange','green','blue','purple']
+    i=0
+    for year in district:
+        chart(year, x,y, colors[i])
+        i += 1
+    plt.show
 
