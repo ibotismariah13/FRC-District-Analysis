@@ -49,7 +49,7 @@ def createYear(district_code, states):
         if element.get('state_prov') in states and element.get:
             year.append(Team(element['key'], element['team_number'], element['nickname'], element['rookie_year'],
                              element['postal_code'], element['state_prov'],
-                             element.get('points'), element.get('rank')))
+                             element.get('points'), element.get('rank'), district_code[0:4]))
 
     return year
 
@@ -64,9 +64,10 @@ def create_district(district_codes, states):
 chs = ['2016chs', '2017chs', '2018chs', '2019chs']
 fim = ['2015fim','2016fim', '2017fim', '2018fim', '2019fim']
 #chs2016=createYear('2016chs')
-chesapeake = create_district(chs,['Maryland','Virginia',"District of Columbia"])
-#mich=create_district(fim)
-graph.chart_year(chesapeake[0], 'income', 'points','blue')
-graph.chart_district(chesapeake,'income','points')
+#chesapeake = create_district(chs,['Maryland','Virginia',"District of Columbia"])
+mich=create_district(fim,['Michigan'])
+#graph.chart_year(chesapeake[0], 'income', 'points','blue')
+#graph.chart_district(chesapeake,'av_miles','points')
 #graph.chart_year(mich[0])
+graph.chart_district(mich,'av_miles','points')
 

@@ -13,6 +13,21 @@ def chart(year, x, y,color):
                 xv=team.get_income()
                 yv=team.get_points()
                 plt.scatter(xv, yv, c=color, alpha = 0.5)
+        if x== "income" and y== "total_miles":
+            if team.get_income() and team.total_distance is not None:
+                xv = team.income
+                yv = team.total_distance
+                plt.scatter(xv, yv, c=color, alpha=0.5)
+        if x== 'total_miles' and y=='points':
+            if team.get_points() and team.total_distance is not None:
+                xv = team.total_distance
+                yv = team.points
+                plt.scatter(xv, yv, c=color, alpha=0.5)
+        if x == 'av_miles' and y == 'points':
+            if team.get_points() and team.average_distance is not None:
+                xv = team.average_distance
+                yv = team.points
+                plt.scatter(xv, yv, c=color, alpha=0.5)
 def chart_year(year, x, y,color):
     chart(year,x,y,color)
     plt.show()

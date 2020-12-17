@@ -1,8 +1,9 @@
 '''team object and its attribute's'''
 import uszipcode as uszip  # zipcode data https://uszipcode.readthedocs.io/01-Tutorial/index.html
+from travel import Travel
 class Team:
 
-    def __init__(self, key, number, name, rookie_year, postal_code, state, points, rank):
+    def __init__(self, key, number, name, rookie_year, postal_code, state, points, rank, year):
         self.key = key
         self.number = int(number)
         self.name = name
@@ -11,6 +12,10 @@ class Team:
         self.points = points
         self.rank = rank
         self.state = state
+        self.year =year
+        travel = Travel(self.key, self.postal_code, self.year)
+        self.average_distance = travel.average_distance()
+        self.total_distance = travel.total_distance()
 
         search= uszip.SearchEngine()
         zipcode = search.by_zipcode(postal_code)
