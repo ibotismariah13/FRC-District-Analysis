@@ -21,19 +21,6 @@ def get_district_data(district_code):
     rankings = json.loads(response.text)
 
     for element in teams:
-        '''delete unesseary info'''
-        del element['name']
-        del element["school_name"]
-        del element["gmaps_place_id"]
-        del element["gmaps_url"]
-        del element["country"]
-        del element['lat']
-        del element["lng"]
-        del element["location_name"]
-        del element["website"]
-        del element["motto"]
-        del element["address"]
-        del element["home_championship"]
         for rank in rankings:
             if element['key'] == rank['team_key']:
                 element['points'] = int(rank['point_total'])
@@ -46,28 +33,57 @@ def createYear(district_code, states):
     teams = get_district_data(district_code)
     year = []
     for element in teams:
-        if element.get('state_prov') in states and element.get:
+        if element.get('state_prov') in states:
             year.append(Team(element['key'], element['team_number'], element['nickname'], element['rookie_year'],
-                             element['postal_code'], element['state_prov'],
-                             element.get('points'), element.get('rank'), district_code[0:4]))
+                                 element['postal_code'], element['state_prov'],
+                                 element.get('points'), element.get('rank'), district_code[0:4]))
 
     return year
 
 
-def create_district(district_codes, states):
+def create_district(district_codes,states):
     district = []
     for year in district_codes:
         district.append(createYear(year,states))
     return district
 
+'''District years'''
+chs = ['2016chs', '2017chs','2018chs', '2019chs'] #chesepeake 2016-2020
+fim = ['2016fim', '2017fim','2018fim', '2019fim'] #michigan 2010-2020
+fit = ['2019fit'] #first in texas 2019-2020
+fin = [ '2016in', '2017in','2018in', '2019in'] #first indiana robotics 2015-2020
+fma =['2018fma', '2019fma'] #first mid Atlantic 2012-2020
+fnc=['2018fnc', '2019fnc'] #first north carolina 2016-2020
+nef=['2018ne', '2019ne'] #new england first 2014-2020
+pnw = ['2018pnw', '2019pwn'] #pacific north west'2014-2020
+pch =['2016pch', '2017pch','2018pch', '2019pch'] #peachtree 2016-2020
 
-chs = ['2016chs', '2017chs', '2018chs', '2019chs']
-fim = ['2015fim','2016fim', '2017fim', '2018fim', '2019fim']
-#chs2016=createYear('2016chs')
-#chesapeake = create_district(chs,['Maryland','Virginia',"District of Columbia"])
-mich=create_district(fim,['Michigan'])
-#graph.chart_year(chesapeake[0], 'income', 'points','blue')
+chs_states = ['Maryland', 'Virginia', 'Washington, District Of Columbia'] #chesepeake 2016-2020
+fim_states = [ 'Michigan'] #michigan 2010-2020
+fit_states = ['Texas', 'New Mexico'] #first in texas 2019-2020
+fin_states = [ 'Indiana'] #first indiana robotics 2015-2020
+fma_states =['New Jersey', 'Pennsylvania', 'Delaware'] #first mid Atlantic 2012-2020
+fnc_states=['North Carolina'] #first north carolina 2016-2020
+nef_states=['Massachusetts', 'Maine', 'Vermont', 'Rhode Island', 'New Hampshire', 'Connecticut'] #new england first 2014-2020
+pnw_states = ['Alaska', 'Washington','Oregon'] #pacific north west'2014-2020
+pch_states =['Georgia'] #peachtree 2016-2020
+
+chesapeake = create_district(chs,chs_states)
+#graph.chart_district(chesapeake,'income','points')
+#mich=create_district(fim,fim_states)
+#graph.chart_district(mich,'income','points')
+#ind = create_district(fin, fin_states)
+#graph.chart_district(ind,'income','points')
+#peach = create_district(pch,pch_states)
+#graph.chart_district(peach,'income','points')
+#graph.chart_district(ind,'av_miles','points')
+#graph.chart_district(mich,'av_miles','points')
 #graph.chart_district(chesapeake,'av_miles','points')
-#graph.chart_year(mich[0])
-graph.chart_district(mich,'av_miles','points')
+for year in chesapeake:
+    for team in year:
+        print(team.name,' ',team.postal_code, ' ', team.average_distance)
+
+
+
+
 

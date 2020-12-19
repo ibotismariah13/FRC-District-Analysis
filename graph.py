@@ -7,24 +7,27 @@ import team
 import matplotlib.pyplot as plt
 def chart(year, x, y,color):
     "year is age of the district"
-    for team in year:
-        if x == "income" and y=='points':
-            if team.get_points() and team.get_income()is not None:
-                xv=team.get_income()
-                yv=team.get_points()
+    if x == "income" and y=='points':
+        for team in year:
+            if team.points and team.income is not None:
+                xv=team.income
+                yv=team.points
                 plt.scatter(xv, yv, c=color, alpha = 0.5)
-        if x== "income" and y== "total_miles":
-            if team.get_income() and team.total_distance is not None:
+    elif x== "income" and y== "total_miles":
+        for team in year:
+            if team.income and team.total_distance is not None:
                 xv = team.income
                 yv = team.total_distance
                 plt.scatter(xv, yv, c=color, alpha=0.5)
-        if x== 'total_miles' and y=='points':
-            if team.get_points() and team.total_distance is not None:
+    elif x== 'total_miles' and y=='points':
+       for team in year:
+            if team.points and team.total_distance is not None:
                 xv = team.total_distance
                 yv = team.points
                 plt.scatter(xv, yv, c=color, alpha=0.5)
-        if x == 'av_miles' and y == 'points':
-            if team.get_points() and team.average_distance is not None:
+    elif x == 'av_miles' and y == 'points':
+        for team in year:
+            if team.points and team.average_distance is not None:
                 xv = team.average_distance
                 yv = team.points
                 plt.scatter(xv, yv, c=color, alpha=0.5)

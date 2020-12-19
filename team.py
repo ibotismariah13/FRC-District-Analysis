@@ -28,7 +28,4 @@ class Team:
     def __str__(self):
             team= self.key + ' ' + str(self.number) + ' '+self.name + ' ' + str(self.rookie_year) +' ' + str(self.postal_code) + ' ' + str(self.points) + ' '+ str(self.rank)+ ' ' + str(self.pop_density) + ' '+ str(self.income) + ' '+ str(self.income) + ' '+ self.state
             return team
-    def get_points(self):
-        return self.points
-    def get_income(self):
-        return self.income
+

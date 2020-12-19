@@ -30,13 +30,19 @@ class Travel:
 
     def total_distance(self):
         sum = 0
+       # i =0
         for item in self.distances:
-            sum += item
+            #if i < 3:
+             sum += item
+            # i +=1
+           # else:
+               # break
         return sum
 
     def average_distance(self):
         self.total_distance()
         if len(self.distances) != 0:
+            #if len(self.distances) < 4:
             return float(self.total_distance()/len(self.distances))
-
-
+           # else:
+                #return float(self.total_distance() / 3)
