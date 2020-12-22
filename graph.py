@@ -31,6 +31,13 @@ def chart(year, x, y,color):
                 xv = team.average_distance
                 yv = team.points
                 plt.scatter(xv, yv, c=color, alpha=0.5)
+
+    elif x == 'qual_av' and y == 'points':
+        for team in year:
+            #if team.points and team.average_distance is not None:
+            xv = team.qual_av()
+            yv = team.points
+            plt.scatter(xv, yv, c=color, alpha=0.5)
 def chart_year(year, x, y,color):
     chart(year,x,y,color)
     plt.show()
