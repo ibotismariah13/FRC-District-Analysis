@@ -6,6 +6,7 @@ import requests  # abblity to request api
 import graph
 from team import Team
 import csv
+import pandas
 
 
 def get_district_data(district_code):
@@ -40,16 +41,12 @@ def createYear(district_code, states):
                                  element.get('points'), element.get('rank'), district_code))
 
     return year
-def createYearSheet(district_code, states):
-    year = createYear(district_code, states)
-    file_name=district_code + '.csv'
-    with open(file_name, 'w') as file:
-        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(['Year', 'Team Key', 'Team Name', 'Team Number', 'Rookie Year','Zipcode', 'Income','Pop Density', 'Distances to events','Total Distance', 'Average Distance', 'District Points', 'District Rank'])
-        for team in year:
-            writer.writerow([team.year,team.key,team.name, team.number, team.rookie_year, team.postal_code, team.income, team.pop_density,team.distances,team.total_distance,team.average_distance, team.points, team.rank])
-    return file_name
 
+
+def createYearSheetPandas(district_code, states):
+    year = createYear(district_code, states)
+    df = pandas.DataFrame([team.__dict__ for team in year])
+    df.to_csv(district_code + '.csv', encoding='utf-8-sig', index=False)
 
 def create_district(district_codes,states):
     district = []
@@ -57,6 +54,11 @@ def create_district(district_codes,states):
         district.append(createYear(year,states))
     return district
 
+def create_district_sheets(district_codes,states):
+    district = []
+    for year in district_codes:
+        district.append(createYearSheetPandas(year,states))
+    return district
 '''District years'''
 chs = ['2016chs', '2017chs','2018chs', '2019chs'] #chesepeake 2016-2020
 fim = ['2015fim','2016fim', '2017fim','2018fim', '2019fim'] #michigan 2010-2020
@@ -78,27 +80,25 @@ nef_states=['Massachusetts', 'Maine', 'Vermont', 'Rhode Island', 'New Hampshire'
 pnw_states = ['Alaska', 'Washington','Oregon'] #pacific north west'2014-2020
 pch_states =['Georgia'] #peachtree 2016-2020
 
-chesapeake = create_district(chs,chs_states)
-#mich=create_district(fim,fim_states)
-'''texas=create_district(fit,fit_states)
-ind = create_district(fin, fin_states)
-mid = create_district(fma,fma_states)
-nc = create_district(fnc,fnc_states)
-ne = create_district(nef,nef_states)
-pwest = create_district(pnw,pnw_states)
-peach = create_district(pch,pch_states)'''
 
-#chs2016=createYearSheet('2016chs', chs_states)
+'''create_district_sheets(fit,fit_states)
+create_district_sheets(fin, fin_states)
+create_district_sheets(fnc,fnc_states)
+create_district_sheets(pch,pch_states)
+create_district_sheets(chs,chs_states)
+create_district_sheets(fma,fma_states)
+create_district_sheets(pnw,pnw_states)
+create_district_sheets(nef,nef_states)
+create_district_sheets(fim,fim_states)'''
+
 #graph.chart_district(chesapeake,'income','points')
 #graph.chart_district(mich,'income','points')
 #graph.chart_district(ind,'income','points')
 #graph.chart_district(peach,'income','points')
 #graph.chart_district(ind,'av_miles','points')
 #graph.chart_district(mich,'av_miles','points')
-graph.chart_district(chesapeake,'qual_av','points')
-'''for year in chesapeake:
-    for team in year:
-        print(team.name,' ',team.postal_code, ' ', team.average_distance)'''
+#graph.chart_district(chesapeake,'qual_av','points')
+
 
 
 

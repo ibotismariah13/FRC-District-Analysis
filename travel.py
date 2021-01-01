@@ -39,7 +39,7 @@ class Travel:
         for item in distances:
             sum += item
         return sum
-    
+
 
     def average_distance(self):
         total=self.total_distance()
