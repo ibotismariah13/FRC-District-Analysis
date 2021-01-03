@@ -10,14 +10,15 @@ import pandas
 
 
 def get_district_data(district_code):
-    '''creates a dictorary for the given district year and returns a list'''
+    '''creates a dictorary of teams for the given  district year and returns a list'''
+    # creates a dictorary for the teams in a district during a year
     url = "https://www.thebluealliance.com/api/v3/district/" + district_code + "/teams"
     header = {
         "X-TBA-Auth-Key": 'bDf8f29vaRS5Q5Zecj9ZRadHcZZz1c2l7rwgMIiXZfcIWMlMQYWbcTtqiJPQDWRh'
     }
     response = requests.request("GET", url, headers=header)
-    # print(response.text)
     teams = json.loads(response.text)
+      # creates a dictorary of teams rankings and points in a district during a year
     url = "https://www.thebluealliance.com/api/v3/district/" + district_code + "/rankings"
     response = requests.request("GET", url, headers=header)
     rankings = json.loads(response.text)
@@ -32,6 +33,7 @@ def get_district_data(district_code):
 
 
 def createYear(district_code, states):
+    '''creates a list of team objects in a year'''
     teams = get_district_data(district_code)
     year = []
     for element in teams:
@@ -44,21 +46,25 @@ def createYear(district_code, states):
 
 
 def createYearSheetPandas(district_code, states):
+    '''creates a csv for a year in a district'''
     year = createYear(district_code, states)
     df = pandas.DataFrame([team.__dict__ for team in year])
     df.to_csv(district_code + '.csv', encoding='utf-8-sig', index=False)
 
 def create_district(district_codes,states):
+    '''creates a list of team objects in a district for a year'''
     district = []
     for year in district_codes:
         district.append(createYear(year,states))
     return district
 
 def create_district_sheets(district_codes,states):
+    '''creates a csv for each year in a district'''
     district = []
     for year in district_codes:
         district.append(createYearSheetPandas(year,states))
     return district
+
 '''District years'''
 chs = ['2016chs', '2017chs','2018chs', '2019chs'] #chesepeake 2016-2020
 fim = ['2015fim','2016fim', '2017fim','2018fim', '2019fim'] #michigan 2010-2020
@@ -70,6 +76,64 @@ nef=['2015ne', '2016ne', '2017ne','2018ne', '2019ne'] #new england first 2014-20
 pnw = ['2015pnw', '2016pnw', '2017pnw','2018pnw', '2019pnw'] #pacific north west'2014-2020
 pch =['2016pch', '2017pch','2018pch', '2019pch'] #peachtree 2016-2020
 
+'dicts of years and district codes'
+chesapeake = {
+    2016:chs[0],
+    2017: chs[1],
+    2018: chs[2],
+    2019: chs[3]
+    }
+indiana = {
+    2015: fin[0],
+    2016:fin[1],
+    2017: fin[3],
+    2018:fin[3],
+    2019:fin[4]
+    }
+michigan ={
+    2015: fim[0],
+    2016:fim[1],
+    2017: fim[3],
+    2018:fim[3],
+    2019:fim[4]
+}
+mid_alantic = {
+    2015: fma[0],
+    2016: fma[1],
+    2017: fma[3],
+    2018: fma[3],
+    2019: fma[4]
+}
+new_england={
+    2015: nef[0],
+    2016:nef[1],
+    2017: nef[3],
+    2018:nef[3],
+    2019:nef[4]
+}
+north_carolina = {
+    2016:fnc[0],
+    2017: fnc[1],
+    2018:fnc[2],
+    2019:fnc[3]
+}
+pacific_north_west={
+    2015: pnw[0],
+    2016: pnw[1],
+    2017: pnw[3],
+    2018: pnw[3],
+    2019: pnw[4]
+}
+peach_tree={
+    2016:pch[0],
+    2017: pch[1],
+    2018:pch[2],
+    2019:pch[3]
+}
+texas = {
+    2019:fit[0]
+}
+'''List of states in each district for data validation'''
 chs_states = ['Maryland', 'Virginia', 'Washington, District Of Columbia'] #chesepeake 2016-2020
 fim_states = [ 'Michigan'] #michigan 2010-2020
 fit_states = ['Texas', 'New Mexico'] #first in texas 2019-2020
@@ -80,7 +144,7 @@ nef_states=['Massachusetts', 'Maine', 'Vermont', 'Rhode Island', 'New Hampshire'
 pnw_states = ['Alaska', 'Washington','Oregon'] #pacific north west'2014-2020
 pch_states =['Georgia'] #peachtree 2016-2020
 
-
+'''creates sheets for each district'''
 '''create_district_sheets(fit,fit_states)
 create_district_sheets(fin, fin_states)
 create_district_sheets(fnc,fnc_states)
@@ -91,6 +155,7 @@ create_district_sheets(pnw,pnw_states)
 create_district_sheets(nef,nef_states)
 create_district_sheets(fim,fim_states)'''
 
+'''charts districts'''
 #graph.chart_district(chesapeake,'income','points')
 #graph.chart_district(mich,'income','points')
 #graph.chart_district(ind,'income','points')
@@ -98,6 +163,8 @@ create_district_sheets(fim,fim_states)'''
 #graph.chart_district(ind,'av_miles','points')
 #graph.chart_district(mich,'av_miles','points')
 #graph.chart_district(chesapeake,'qual_av','points')
+#graph.plot_file('2016chs', 'income', 'points')
+graph.chart_district(chs, 'income','points')
 
 
 

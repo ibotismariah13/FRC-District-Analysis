@@ -3,50 +3,22 @@ The graph will choose x-axis options (  income, distance from competition, trave
 '''
 
 '''imports'''
-import team
-import matplotlib.pyplot as plt
-def chart(year, x, y,color):
-    "year is age of the district"
-    if x == "income" and y=='points':
-        for team in year:
-            if team.points and team.income is not None:
-                xv=team.income
-                yv=team.points
-                plt.scatter(xv, yv, c=color, alpha = 0.5)
-    elif x== "income" and y== "total_miles":
-        for team in year:
-            if team.income and team.total_distance is not None:
-                xv = team.income
-                yv = team.total_distance
-                plt.scatter(xv, yv, c=color, alpha=0.5)
-    elif x== 'total_miles' and y=='points':
-       for team in year:
-            if team.points and team.total_distance is not None:
-                xv = team.total_distance
-                yv = team.points
-                plt.scatter(xv, yv, c=color, alpha=0.5)
-    elif x == 'av_miles' and y == 'points':
-        for team in year:
-            if team.points and team.average_distance is not None:
-                xv = team.average_distance
-                yv = team.points
-                plt.scatter(xv, yv, c=color, alpha=0.5)
 
-    elif x == 'qual_av' and y == 'points':
-        for team in year:
-            #if team.points and team.average_distance is not None:
-            xv = team.qual_av()
-            yv = team.points
-            plt.scatter(xv, yv, c=color, alpha=0.5)
-def chart_year(year, x, y,color):
-    chart(year,x,y,color)
-    plt.show()
+
+
+import pandas as pd
+
+
+def plot_file(file, x, y,color):
+    '''uses pandas and the colum names to make a scatter plot of the csv file annd given color'''
+    msft = pd.read_csv(file +'.csv')
+    t=file+' '+ x + ' vs. ' + y
+    msft.plot.scatter(x, y,c=color, alpha = 0.5, title=t )
 
 def chart_district(district, x,y):
-    colors = ['red','orange','green','blue','purple']
-    i=0
+    '''given a csv name and an x and y colum plots values for each year in a district'''
+    colors = ['red', 'orange', 'green', 'blue', 'purple']
+    i = 0
     for year in district:
-        chart(year, x,y, colors[i])
+        plot_file(year, x, y, colors[i])
         i += 1
-    plt.show
-
