@@ -52,12 +52,47 @@ ne2019=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-An
                  sep=",", header=TRUE)
 
 
-#2019
-
-
-
-
-
+#Pacific North West
+pnw2015=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2015\\2015pnw.csv",
+                sep=",", header=TRUE)
+pnw2016=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2016\\2016pnw.csv",
+                sep=",", header=TRUE)
+pnw2017=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2017\\2017pnw.csv",
+                sep=",", header=TRUE)
+pnw2018=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2018\\2018pnw.csv",
+                sep=",", header=TRUE)
+pnw2019=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2019\\2019pnw.csv",
+                sep=",", header=TRUE)
+#chesapeake
+chs2016=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2016\\2016chs.csv",
+                 sep=",", header=TRUE)
+chs2017=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2017\\2017chs.csv",
+                 sep=",", header=TRUE)
+chs2018=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2018\\2018chs.csv",
+                 sep=",", header=TRUE)
+chs2019=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2019\\2019chs.csv",
+                 sep=",", header=TRUE)
+#North Carolina
+nc2016=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2016\\2016nc.csv",
+                 sep=",", header=TRUE)
+nc2017=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2017\\2017nc.csv",
+                 sep=",", header=TRUE)
+nc2018=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2018\\2018nc.csv",
+                 sep=",", header=TRUE)
+nc2019=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2019\\2019fnc.csv",
+                 sep=",", header=TRUE)
+#Peach Tree
+pch2016=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2016\\2016pch.csv",
+               sep=",", header=TRUE)
+pch2017=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2017\\2017pch.csv",
+                sep=",", header=TRUE)
+pch2018=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2018\\2018pch.csv",
+                sep=",", header=TRUE)
+pch2019=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2019\\2019pch.csv",
+                sep=",", header=TRUE)
+#texas
+tx2019=read.csv("C:\\Users\\iboti\\Documents\\Personal Projects\\FRC-District-Analysis\\districts2019\\2019tx.csv",
+                 sep=",", header=TRUE)
 
 
 
