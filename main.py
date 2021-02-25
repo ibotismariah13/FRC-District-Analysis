@@ -6,16 +6,15 @@ import requests  # abblity to request api
 import graph
 from team import Team
 import csv
-import pandas
-
+import pandas as pd
+from datetime import datetime, timedelta
+import header
 
 def get_district_data(district_code):
     '''creates a dictorary of teams for the given  district year and returns a list'''
     # creates a dictorary for the teams in a district during a year
     url = "https://www.thebluealliance.com/api/v3/district/" + district_code + "/teams"
-    header = {
-        "X-TBA-Auth-Key": 'bDf8f29vaRS5Q5Zecj9ZRadHcZZz1c2l7rwgMIiXZfcIWMlMQYWbcTtqiJPQDWRh'
-    }
+    header = header.key
     response = requests.request("GET", url, headers=header)
     teams = json.loads(response.text)
       # creates a dictorary of teams rankings and points in a district during a year
@@ -164,7 +163,87 @@ create_district_sheets(fim,fim_states)'''
 #graph.chart_district(mich,'av_miles','points')
 #graph.chart_district(chesapeake,'qual_av','points')
 #graph.plot_file('2016chs', 'income', 'points')
-graph.chart_district(chs, 'income','points')
+
+#graph.chart_district(fim, 'income', 'points')
+
+#graph.chart_year(fin2019, 'average_distance','points')
+
+#graph.chart_district(nef, 'income','average_distance')
+#graph.chart_district(fin, 'average_distance','income')
+#graph.chart_district(fit, 'average_distance','income')
+#graph.chart_district(fim, 'average_distance','income')
+
+def travel_cost(district):
+
+    MILE=0.58 #us milage
+    HOTEL=1040 #average mid grade hotel cost for 30 people per night
+    for year in district:
+        with open(year+'.csv') as csvfile:
+            file = csv.reader(csvfile, delimiter=',' )
+            next(file)
+            for team in file:
+                if(team[15]!='0.0'):
+
+                    #print(team)
+                    i=0
+                    tc = 0
+                    edistances=team[14].split(', ')
+                    distances =[]
+
+                    for item in edistances:
+                        item=item.strip("[ ]")
+                        item=float(item)
+                        distances.append(item)
+                    print(distances)
+                    fevents=(team[13]).split('')
+                    print(fevents)
+                    events=[]
+                    dayL=[]
+
+                    for event in fevents:
+                        day1 = (event[2].strip(" ]'")).split('-')
+                        day2 = (event[3].strip(" ]'")).split('-')
+                        day1 = datetime(int(day1[0]), int(day1[1]), int(day1[2]))
+                        day2 = datetime(int(day2[0]), int(day2[1]), int(day2[2]))
+                        days = (day2 - day1).days  # lenght of events
+                        print(event)
+                        dayL.append(days)
+
+                    evnum=len(dayL)
+                    print(dayL)
+                    print(evnum)
+                    if evnum == 1:
+                       events.append([dayL[0],distances[0]])
+                    elif evnum == 2:
+                        events.append([dayL[0], distances[0]])
+                        events.append([dayL[1], distances[1]])
+                    elif evnum >= 3:
+                        events.append([dayL[0], distances[0]])
+                        events.append([dayL[1], distances[1]])
+                        events.append([dayL[2], distances[2]])
+
+
+
+                    print(events)
+                    for event in events:
+
+                       if events[1] <= 50.0:
+                           hotel=0
+                           print('hotel  ',hotel)
+                           miles=2*MILE*days
+                           print('miles  ', hotel)
+                       elif events[1]<50.0:
+                           hotel = (days-1)*HOTEL
+                           print('hotel  ', hotel)
+                           miles=   2*events[1]+ 2*10*(days-1)
+                           print('miles  ', hotel)
+                       tc=tc+miles+hotel
+                       print('tc' , tc)
+                       i+=1
+
+
+#travel_cost(chs)
+graph.chart_district(chs,'income','average_distance')
 
 
 
