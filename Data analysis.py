@@ -6,13 +6,13 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np  # numpy
 import json
-
+import header
 
 def get_district_data(district_code):
     '''creates a dictorary for the given district year and returns a list'''
     url = "https://www.thebluealliance.com/api/v3/district/" + district_code + "/teams"
     header = {
-        "X-TBA-Auth-Key": 'bDf8f29vaRS5Q5Zecj9ZRadHcZZz1c2l7rwgMIiXZfcIWMlMQYWbcTtqiJPQDWRh'
+        header.key
     }
     response = requests.request("GET", url, headers=header)
     # print(response.text)
